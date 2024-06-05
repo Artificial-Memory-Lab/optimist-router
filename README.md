@@ -16,10 +16,7 @@ cargo run --release -- --config ${PATH_TO_YAML_CONFIG}
 
 The YAML configuration file must contain a manifest of all experiments
 you wish to run. For a detailed structure of the configuration, see
-`crate::experiment::Config`. You can find an example configuration in
-`data/experiment_config.yaml`.
-
-You can find configs used in
+`crate::experiment::Config`. You can find configs used in
 [our paper](https://arxiv.org/abs/2405.12207) along with output logs in `experiments/`.
 
 The degree of parallelism of the code can be set through the RAYON_NUM_THREADS env
