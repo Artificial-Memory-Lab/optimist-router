@@ -86,7 +86,7 @@ impl Config {
                     self.compile_clustering(clustering),
                     clustering.num_clusters,
                 )
-                    .unwrap();
+                .unwrap();
                 if let Some(t) = self.report_covariance_eigenvalue {
                     let values = index.partitions().covariance_eigenvalues(t);
                     println!("    {}-th eigenvalues: {}", t, values.iter().format(","));
@@ -129,7 +129,7 @@ impl Config {
                         "  Router has average size per partition of {} vectors",
                         router.size() as f32
                             / ((index.partitions().num_dimensions() * index.partitions().len())
-                            as f32)
+                                as f32)
                     );
                     router
                 })

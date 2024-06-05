@@ -137,7 +137,8 @@ impl IvfIndex {
                                 .partitions
                                 .partition(partition_id)
                                 .unwrap()
-                                .points().dot(&q.view())
+                                .points()
+                                .dot(&q.view()),
                         };
 
                         // Compute error.
