@@ -1,0 +1,114 @@
+- name: "GloVe-200 Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/glove-200.hdf5"
+  metric: !Cosine
+  indexing: !New
+    clustering:
+      output:
+      algorithm: !SphericalKmeans
+      num_clusters: 1024
+      num_iterations: 20
+  routing:
+    top_k:
+      - 100
+    percent_points_probed:
+      - 8    # Optimist reaches 90% recall
+      - 9    # NormalizedMean reaches 90% recall
+      - 17   # Optimist reaches 95% recall
+      - 18.2 # NormalizedMean reaches 95% recall
+    routers:
+      - !New { router_type: !NormalizedMean, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 4 } }, output: }
+- name: "Music 100 Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/music-100.hdf5"
+  metric: !InnerProduct
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 1024
+      num_iterations: 20
+  routing:
+    top_k:
+      - 100
+    percent_points_probed:
+      - 0.32  # Optimist reaches 90% recall
+      - 0.52  # NormalizedMean reaches 90% recall
+      - 0.64  # Optimist reaches 95% recall
+      - 1.4   # NormalizedMean reaches 95% recall
+    routers:
+      - !New { router_type: !NormalizedMean, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 2 } }, output: }
+- name: "Text2Image Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/text2image-10M.hdf5"
+  metric: !InnerProduct
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 3000
+      num_iterations: 20
+      samples_per_centroid: 128
+  routing:
+    top_k:
+      - 100
+    percent_queries: 10
+    percent_points_probed:
+      - 0.68  # Optimist reaches 90% recall
+      - 0.86  # NormalizedMean reaches 90% recall
+      - 1.4   # Optimist reaches 95% recall
+      - 1.8   # NormalizedMean reaches 95% recall
+    routers:
+      - !New { router_type: !NormalizedMean, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 4 } }, output: }
+- name: "MsMarco-MiniLM Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5"
+  metric: !Cosine
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 3000
+      num_iterations: 20
+      samples_per_centroid: 128
+  routing:
+    top_k:
+      - 100
+    percent_points_probed:
+      - 1.4  # Optimist reaches 90% recall
+      - 1.8  # NormalizedMean reaches 90% recall
+      - 4.8  # Optimist reaches 95% recall
+      - 5.2  # NormalizedMean reaches 95% recall
+    routers:
+      - !New { router_type: !NormalizedMean, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 8 } }, output: }
+- name: "Nq-Ada2 Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/nq-openai_ada002-1536.hdf5"
+  metric: !Cosine
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !StandardKmeans
+      num_clusters: 1600
+      num_iterations: 20
+      samples_per_centroid: 128
+  routing:
+    top_k:
+      - 100
+    percent_points_probed:
+      - 1.8  # Optimist reaches 90% recall
+      - 2.15 # NormalizedMean reaches 90% recall
+      - 4.0  # Optimist reaches 95% recall
+      - 5.0  # NormalizedMean reaches 95% recall
+    routers:
+      - !New { router_type: !NormalizedMean, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 30 } }, output: }

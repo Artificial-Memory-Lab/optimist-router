@@ -1,0 +1,76 @@
+- name: "GloVe-200"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/glove-200.hdf5"
+  metric: !Cosine
+  indexing: !New
+    clustering:
+      output:
+      algorithm: !SphericalKmeans
+      num_clusters: 1024
+      num_iterations: 20
+  report_covariance_eigenvalue: 5
+- name: "Music 100"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/music-100.hdf5"
+  metric: !InnerProduct
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 1024
+      num_iterations: 20
+  report_covariance_eigenvalue: 3
+- name: "Text2Image"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/text2image-10M.hdf5"
+  metric: !InnerProduct
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 3000
+      num_iterations: 20
+      samples_per_centroid: 128
+  report_covariance_eigenvalue: 5
+- name: "Deep1M"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/deep-image-96.hdf5"
+  metric: !Cosine
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 3000
+      num_iterations: 20
+      samples_per_centroid: 128
+  report_covariance_eigenvalue: 3
+- name: "MsMarco-MiniLM"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5"
+  metric: !Cosine
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 3000
+      num_iterations: 20
+      samples_per_centroid: 128
+  report_covariance_eigenvalue: 9
+- name: "Nq-Ada2"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/nq-openai_ada002-1536.hdf5"
+  metric: !Cosine
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !StandardKmeans
+      num_clusters: 1600
+      num_iterations: 20
+      samples_per_centroid: 128
+  report_covariance_eigenvalue: 31

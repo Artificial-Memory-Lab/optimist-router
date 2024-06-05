@@ -1,0 +1,299 @@
+- name: "GloVe-200 Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/glove-200.hdf5"
+  metric: !Cosine
+  indexing: !New
+    clustering:
+      output:
+      algorithm: !SphericalKmeans
+      num_clusters: 1024
+      num_iterations: 20
+  routing:
+    top_k:
+      - 100
+    percent_points_probed:
+      - 4
+      - 4.1
+      - 4.2
+      - 4.4
+      - 4.8
+      - 5
+      - 5.2
+      - 5.4
+      - 5.8
+      - 6
+      - 6.2
+      - 6.4
+      - 6.8
+      - 7
+      - 7.2
+      - 7.4
+      - 7.8
+      - 8
+    routers:
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !Diagonal }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 2 } }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 4 } }, output: }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !SphericalKmeans,
+            num_clusters: 2,
+            num_iterations: 20,
+          }
+        }
+      }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !SphericalKmeans,
+            num_clusters: 6,
+            num_iterations: 20,
+          }
+        }
+      }
+- name: "Music 100 Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/music-100.hdf5"
+  metric: !InnerProduct
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 1024
+      num_iterations: 20
+  routing:
+    top_k:
+      - 100
+    percent_points_probed:
+      - 0
+      - 0.1
+      - 0.2
+      - 0.4
+      - 0.8
+      - 1
+      - 1.2
+      - 1.4
+      - 1.8
+      - 2
+    routers:
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !Diagonal }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 2 } }, output: }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !SphericalKmeans,
+            num_clusters: 2,
+            num_iterations: 20,
+          }
+        }
+      }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !SphericalKmeans,
+            num_clusters: 4,
+            num_iterations: 20,
+          }
+        }
+      }
+- name: "Text2Image Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/text2image-10M.hdf5"
+  metric: !InnerProduct
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 3000
+      num_iterations: 20
+      samples_per_centroid: 128
+  routing:
+    top_k:
+      - 100
+    percent_queries: 10
+    percent_points_probed:
+      - 0
+      - 0.1
+      - 0.2
+      - 0.4
+      - 0.8
+      - 1
+      - 1.2
+      - 1.4
+      - 1.8
+      - 2
+    routers:
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !Diagonal }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 2 } }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 4 } }, output: }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !SphericalKmeans,
+            num_clusters: 2,
+            num_iterations: 20,
+          }
+        }
+      }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !SphericalKmeans,
+            num_clusters: 6,
+            num_iterations: 20,
+          }
+        }
+      }
+- name: "Deep1M Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/deep-image-96.hdf5"
+  metric: !Cosine
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 3000
+      num_iterations: 20
+      samples_per_centroid: 128
+  routing:
+    top_k:
+      - 100
+    percent_points_probed:
+      - 0
+      - 0.1
+      - 0.2
+      - 0.4
+      - 0.8
+      - 1
+      - 1.2
+      - 1.4
+      - 1.8
+      - 2
+    routers:
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !Diagonal }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 2 } }, output: }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !SphericalKmeans,
+            num_clusters: 2,
+            num_iterations: 20,
+          }
+        }
+      }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !SphericalKmeans,
+            num_clusters: 4,
+            num_iterations: 20,
+          }
+        }
+      }
+- name: "MsMarco-MiniLM Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5"
+  metric: !Cosine
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !SphericalKmeans
+      num_clusters: 3000
+      num_iterations: 20
+      samples_per_centroid: 128
+  routing:
+    top_k:
+      - 100
+    percent_points_probed:
+      - 0
+      - 0.1
+      - 0.2
+      - 0.4
+      - 0.8
+      - 1
+      - 1.2
+      - 1.4
+      - 1.8
+      - 2
+    routers:
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !Diagonal }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 4 } }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 8 } }, output: }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !SphericalKmeans,
+            num_clusters: 2,
+            num_iterations: 20,
+          }
+        }
+      }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !SphericalKmeans,
+            num_clusters: 10,
+            num_iterations: 20,
+          }
+        }
+      }
+- name: "Nq-Ada2 Spherical KMeans"
+  seed: 1
+  num_threads: 128
+  dataset: "/home/sebastian_pinecone_io/datasets/nq-openai_ada002-1536.hdf5"
+  metric: !Cosine
+  indexing: !New
+    output:
+    clustering:
+      algorithm: !StandardKmeans
+      num_clusters: 1600
+      num_iterations: 20
+      samples_per_centroid: 128
+  routing:
+    top_k:
+      - 100
+    percent_points_probed:
+      - 0
+      - 0.1
+      - 0.2
+      - 0.4
+      - 0.8
+      - 1
+      - 1.2
+      - 1.4
+      - 1.8
+      - 2
+    routers:
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !Diagonal }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 16 } }, output: }
+      - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 30 } }, output: }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !StandardKmeans,
+            num_clusters: 2,
+            num_iterations: 20,
+          }
+        }
+      }
+      - !New {
+        router_type: !SubPartition {
+          clustering_config: {
+            algorithm: !StandardKmeans,
+            num_clusters: 32,
+            num_iterations: 20,
+          }
+        }
+      }

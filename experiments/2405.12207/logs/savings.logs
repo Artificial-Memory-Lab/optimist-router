@@ -1,0 +1,169 @@
+Executing 5 experiments.
+--------------------------------------
+Executing experiment: GloVe-200 Spherical KMeans
+--------------------------------------
+Configuration: Config { name: Some("GloVe-200 Spherical KMeans"), seed: Some(1), num_threads: Some(128), dataset: "/home/sebastian_pinecone_io/datasets/glove-200.hdf5", metric: Cosine, indexing: New { clustering: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 1024, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }], percent_points_probed: [8.0, 9.0, 17.0, 18.2], top_k: [100], percent_queries: None }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/glove-200.hdf5
+Normalizing the data points because metric is Cosine
+Making a new index as requested...
+Trained KMeans in 24 seconds
+Assigned clusters in 0 seconds
+Created partitions in 0 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 6.02 vectors
+
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+
+Results
+Top-k = 100
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.18438257,0.19100186,0.23315835,0.2384242
+    PointsProbed: 95355.95,107186.51,201879.67,216078.47
+    Accuracies: 0.88943493,0.89924806,0.94597805,0.95022804
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+    Mean relative prediction error: 0.06699905,0.06656708,0.06485573,0.06474102
+    PointsProbed: 95379.19,107204.555,201864.53,216077.8
+    Accuracies: 0.89998096,0.908517,0.949927,0.95382696
+
+--------------------------------------
+Executing experiment: Music 100 Spherical KMeans
+--------------------------------------
+Configuration: Config { name: Some("Music 100 Spherical KMeans"), seed: Some(1), num_threads: Some(128), dataset: "/home/sebastian_pinecone_io/datasets/music-100.hdf5", metric: InnerProduct, indexing: New { clustering: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 1024, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }], percent_points_probed: [0.32, 0.52, 0.64, 1.4], top_k: [100], percent_queries: None }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/music-100.hdf5
+Making a new index as requested...
+Trained KMeans in 13 seconds
+Assigned clusters in 0 seconds
+Created partitions in 0 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 4.02 vectors
+
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }
+
+Results
+Top-k = 100
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.5208712,0.5464209,0.55631953,0.5873422
+    PointsProbed: 3540.804,5574.6265,6792.757,14463.25
+    Accuracies: 0.86224806,0.90172005,0.915213,0.94984007
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }
+    Mean relative prediction error: 0.17044187,0.19437838,0.20922294,0.28523004
+    PointsProbed: 3457.858,5467.487,6666.7617,14277.181
+    Accuracies: 0.901888,0.93874,0.95029,0.97630095
+
+--------------------------------------
+Executing experiment: Text2Image Spherical KMeans
+--------------------------------------
+Configuration: Config { name: Some("Text2Image Spherical KMeans"), seed: Some(1), num_threads: Some(128), dataset: "/home/sebastian_pinecone_io/datasets/text2image-10M.hdf5", metric: InnerProduct, indexing: New { clustering: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 3000, num_iterations: Some(20), samples_per_centroid: Some(128), sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }], percent_points_probed: [0.68, 0.86, 1.4, 1.8], top_k: [100], percent_queries: Some(10.0) }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/text2image-10M.hdf5
+Making a new index as requested...
+Trained KMeans in 15 seconds
+Assigned clusters in 15 seconds
+Created partitions in 17 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 6.02 vectors
+
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+
+Results
+Top-k = 100
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.1035879,0.107774936,0.11817806,0.12457166
+    PointsProbed: 69767.62,87759.4,141759.75,181781.98
+    Accuracies: 0.87820995,0.900005,0.93549407,0.950255
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+    Mean relative prediction error: 0.061744545,0.06196429,0.062794976,0.06339336
+    PointsProbed: 69766.68,87744.86,141765.28,181742.17
+    Accuracies: 0.901245,0.919578,0.950028,0.961876
+
+--------------------------------------
+Executing experiment: MsMarco-MiniLM Spherical KMeans
+--------------------------------------
+Configuration: Config { name: Some("MsMarco-MiniLM Spherical KMeans"), seed: Some(1), num_threads: Some(128), dataset: "/home/sebastian_pinecone_io/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5", metric: Cosine, indexing: New { clustering: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 3000, num_iterations: Some(20), samples_per_centroid: Some(128), sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 8 }) }, output: None }], percent_points_probed: [1.4, 1.8, 4.8, 5.2], top_k: [100], percent_queries: None }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5
+Normalizing the data points because metric is Cosine
+Making a new index as requested...
+Trained KMeans in 25 seconds
+Assigned clusters in 26 seconds
+Created partitions in 20 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 8 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 10.020833 vectors
+
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 8 }) }, output: None }
+
+Results
+Top-k = 100
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.35619652,0.37490347,0.46314812,0.4714557
+    PointsProbed: 125531.13,160877.11,426132.72,461503.5
+    Accuracies: 0.88773924,0.90166765,0.9477192,0.95096844
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 8 }) }, output: None }
+    Mean relative prediction error: 0.21191384,0.2152339,0.23385185,0.23571473
+    PointsProbed: 125539.18,160837.98,426134.3,461497.47
+    Accuracies: 0.8950344,0.9083954,0.95085675,0.9536948
+
+--------------------------------------
+Executing experiment: Nq-Ada2 Spherical KMeans
+--------------------------------------
+Configuration: Config { name: Some("Nq-Ada2 Spherical KMeans"), seed: Some(1), num_threads: Some(128), dataset: "/home/sebastian_pinecone_io/datasets/nq-openai_ada002-1536.hdf5", metric: Cosine, indexing: New { clustering: ClusteringConfig { algorithm: StandardKmeans, num_clusters: 1600, num_iterations: Some(20), samples_per_centroid: Some(128), sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 30 }) }, output: None }], percent_points_probed: [1.8, 2.15, 4.0, 5.0], top_k: [100], percent_queries: None }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/nq-openai_ada002-1536.hdf5
+Normalizing the data points because metric is Cosine
+Making a new index as requested...
+Trained KMeans in 29 seconds
+Assigned clusters in 17 seconds
+Created partitions in 6 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 30 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 32.01953 vectors
+
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 30 }) }, output: None }
+
+Results
+Top-k = 100
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.024778638,0.024847575,0.025289841,0.025452701
+    PointsProbed: 49309.684,58680.332,108246.25,135090.39
+    Accuracies: 0.8859589,0.900113,0.93895715,0.95024914
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 30 }) }, output: None }
+    Mean relative prediction error: 0.025700025,0.025266765,0.023892209,0.02349663
+    PointsProbed: 49275.53,58647.254,108233.4,135043.34
+    Accuracies: 0.90200174,0.9146466,0.9502288,0.95965236
+

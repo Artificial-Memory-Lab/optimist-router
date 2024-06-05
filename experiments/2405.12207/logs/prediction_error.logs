@@ -1,0 +1,419 @@
+Executing 6 experiments.
+--------------------------------------
+Executing experiment: GloVe-200
+--------------------------------------
+Configuration: Config { name: Some("GloVe-200"), seed: Some(1), num_threads: Some(128), dataset: "/home/sebastian_pinecone_io/datasets/glove-200.hdf5", metric: Cosine, indexing: New { clustering: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 1024, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: Mean, output: None }, New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }, New { router_type: Scann { threshold: 0.5 }, output: None }, New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 6, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }], percent_points_probed: [0.0, 1.0, 2.0, 4.0, 8.0, 16.0, 24.0, 32.0, 40.0, 48.0, 56.0, 64.0, 72.0, 80.0, 88.0, 96.0, 100.0], top_k: [1], percent_queries: None }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/glove-200.hdf5
+Normalizing the data points because metric is Cosine
+Making a new index as requested...
+Trained KMeans in 22 seconds
+Assigned clusters in 0 seconds
+Created partitions in 0 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: Mean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 201 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 6.02 vectors
+Compiling router New { router_type: Scann { threshold: 0.5 }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 6, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 6 vectors
+
+Executing router New { router_type: Mean, output: None }
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+Executing router New { router_type: Scann { threshold: 0.5 }, output: None }
+Executing router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 6, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+
+Results
+Top-k = 1
+  Router New { router_type: Mean, output: None }
+    Mean relative prediction error: 0.4989416,0.5243293,0.5400085,0.560146,0.58578074,0.6166675,0.63747734,0.6539623,0.668148,0.68101853,0.69324356,0.7053686,0.7178392,0.73137504,0.74740267,0.7719653,0.79527044
+    PointsProbed: 1431.2944,12615.499,24433.441,48096.52,95413.06,190074.08,284730.16,379398.3,474069.03,568739.9,663415.06,758078.7,852757.4,947421.8,1042072.2,1136699.4,1183514
+    Accuracies: 0.3857,0.7434,0.819,0.8797,0.9295,0.9625,0.9752,0.9846,0.9891,0.9933,0.9953,0.9976,0.9983,0.9989,0.9998,  1,  1
+
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.115706325,0.118639685,0.13089833,0.15216802,0.18438257,0.22859658,0.26171106,0.28985712,0.31541446,0.33956534,0.36316395,0.38706714,0.4123398,0.43995762,0.472977,0.52138704,0.571973
+    PointsProbed: 1307.3083,12527.725,24356.434,48021.215,95355.95,190034.44,284719.22,379390.5,474096.7,568762.5,663434.3,758106.75,852777.3,947436.44,1042086.8,1136696.9,1183514
+    Accuracies: 0.4468,0.7962,0.8619,0.91,0.9459,0.973,0.9823,0.9883,0.9914,0.995,0.9963,0.9974,0.998,0.9992,0.9998,  1,  1
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+    Mean relative prediction error: 0.099712916,0.07682951,0.070784435,0.06640961,0.06389549,0.063207045,0.06346193,0.06405288,0.06477931,0.06559152,0.06649455,0.067487486,0.068593994,0.06986414,0.07145388,0.0739031,0.07661898
+    PointsProbed: 1331.4438,12567.365,24392.322,48054.563,95377.12,190042.39,284714.66,379387.5,474065.16,568742,663428.94,758095.8,852774.25,947437.7,1042089.56,1136728.6,1183514
+    Accuracies: 0.4198,0.79,0.8548,0.9122,0.9525,0.975,0.9856,0.991,0.9941,0.9963,0.9975,0.9986,0.9992,0.9997,0.9999,  1,  1
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+    Mean relative prediction error: 0.10553412,0.08241685,0.075665765,0.07046239,0.06699905,0.064982705,0.0644968,0.06457859,0.0649385,0.065463066,0.06610462,0.06688556,0.06779811,0.06889033,0.07029743,0.07249624,0.07498087
+    PointsProbed: 1334.9568,12568.325,24397.99,48058.813,95379.19,190040.17,284714.66,379376.4,474060.5,568743.06,663416.44,758099.5,852777,947441.9,1042093.56,1136729.8,1183514
+    Accuracies: 0.3979,0.7723,0.8421,0.8987,0.9433,0.9697,0.982,0.9883,0.9922,0.995,0.9971,0.9978,0.9986,0.9992,0.9999,  1,  1
+
+  Router New { router_type: Scann { threshold: 0.5 }, output: None }
+    Mean relative prediction error: 0.1406484,0.13721068,0.14559425,0.16379802,0.19721869,0.24858591,0.28652325,0.31755087,0.34471703,0.36960828,0.393436,0.41719195,0.4416822,0.4684164,0.5001096,0.54886544,0.5951248
+    PointsProbed: 1430.4652,12612.857,24440.613,48090.88,95409.7,190068.69,284730.3,379402.47,474056.72,568740.6,663410.7,758081.06,852754.4,947415.44,1042066.94,1136692.4,1183514
+    Accuracies: 0.3859,0.743,0.8173,0.8786,0.9283,0.9623,0.9755,0.984,0.9893,0.9928,0.9954,0.9971,0.9983,0.9988,0.9997,  1,  1
+
+  Router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 6, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+    Mean relative prediction error: 0.10962855,0.09829541,0.101843454,0.11219015,0.132539,0.1645131,0.18987074,0.21198182,0.23233418,0.2518067,0.27090338,0.2901924,0.31034237,0.332514,0.3587167,0.39651373,0.43615508
+    PointsProbed: 1295.211,12514.333,24350.973,48015.81,95353.26,190035.83,284721.66,379393.1,474082.88,568757.94,663433.9,758098.56,852774.94,947442.5,1042089.9,1136723.4,1183514
+    Accuracies: 0.4429,0.8075,0.8723,0.9173,0.9513,0.9748,0.9839,0.9894,0.9932,0.9958,0.9969,0.9985,0.999,0.9994,0.9998,  1,  1
+
+--------------------------------------
+Executing experiment: Music 100
+--------------------------------------
+Configuration: Config { name: Some("Music 100"), seed: Some(1), num_threads: Some(200), dataset: "/home/sebastian_pinecone_io/datasets/music-100.hdf5", metric: InnerProduct, indexing: New { clustering: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 1024, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: Mean, output: None }, New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }, New { router_type: Scann { threshold: 0.5 }, output: None }, New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 4, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }], percent_points_probed: [0.0, 1.0, 2.0, 4.0, 8.0, 16.0, 24.0, 32.0, 40.0, 48.0, 56.0, 64.0, 72.0, 80.0, 88.0, 96.0, 100.0], top_k: [1], percent_queries: None }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/music-100.hdf5
+Making a new index as requested...
+Trained KMeans in 14 seconds
+Assigned clusters in 0 seconds
+Created partitions in 0 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: Mean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 101 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 4.02 vectors
+Compiling router New { router_type: Scann { threshold: 0.5 }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 4, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 4 vectors
+
+Executing router New { router_type: Mean, output: None }
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }
+Executing router New { router_type: Scann { threshold: 0.5 }, output: None }
+Executing router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 4, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+
+Results
+Top-k = 1
+  Router New { router_type: Mean, output: None }
+    Mean relative prediction error: 0.5349982,0.68811756,0.72172457,0.7525217,0.78177524,0.813704,0.8361211,0.85477,0.8713873,0.8868944,0.9018371,0.91669804,0.9318999,0.9480915,0.96639055,0.99023634,1.0286511
+    PointsProbed: 449.6498,10387.431,20455.184,40530.04,80605.52,160645.89,240662.73,320675.97,400684.53,480680.28,560689.3,640682.1,720688.9,800665.94,880650.3,960582.75,1000000
+    Accuracies: 0.5859,0.9536,0.9686,0.9789,0.9868,0.9921,0.9946,0.9959,0.9963,0.9974,0.998,0.9984,0.9986,0.9992,0.9995,0.9999,  1
+
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.39311337,0.5749943,0.59962493,0.6231646,0.65147173,0.69204575,0.7251568,0.7545416,0.7817379,0.80776036,0.83332044,0.85910743,0.8857997,0.91447675,0.9471402,0.9896868,1.0413184
+    PointsProbed: 500.6049,10424.674,20478.828,40537.34,80603.195,160643.97,240676.05,320664.28,400687.78,480679.63,560686.2,640680.2,720679.44,800662.75,880648.7,960586.6,1000000
+    Accuracies: 0.5985,0.9505,0.9667,0.9773,0.9854,0.9923,0.9941,0.9955,0.9966,0.9974,0.9979,0.9983,0.9986,0.9991,0.9996,0.9999,  1
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+    Mean relative prediction error: 0.1195799,0.18982038,0.22192134,0.25127155,0.27180982,0.28512672,0.29069802,0.29493138,0.29903796,0.30321887,0.3075843,0.31209204,0.3169831,0.32222804,0.32809675,0.33759794,0.34392324
+    PointsProbed: 440.4987,10297.825,20338.377,40379.11,80425.93,160493.11,240540.08,320580.25,400623.16,480657.72,560692.5,640730.2,720753.8,800792.25,880821.56,960831.8,1000000
+    Accuracies: 0.6309,0.9707,0.9817,0.9897,0.9963,0.9986,0.9994,0.9996,0.9996,0.9997,0.9999,0.9999,  1,  1,  1,  1,  1
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }
+    Mean relative prediction error: 0.14473194,0.24732508,0.34466964,0.5151851,0.73929304,0.92364216,0.9977667,1.0487307,1.0810617,1.1054432,1.1224705,1.1328063,1.1410799,1.1478515,1.1518296,1.1606779,1.1602561
+    PointsProbed: 423.7321,10277.005,20291.287,40325.547,80374.055,160433,240480.61,320536.63,400589.1,480620.1,560670.9,640714.5,720768.7,800827.44,880907.06,961029.5,1000000
+    Accuracies: 0.5823,0.9641,0.975,0.9809,0.9859,0.9932,0.9964,0.9977,0.9987,0.9989,0.9991,0.9995,0.9998,0.9998,0.9999,0.9999,  1
+
+  Router New { router_type: Scann { threshold: 0.5 }, output: None }
+    Mean relative prediction error: 0.31506464,0.4490626,0.4585145,0.46342403,0.47770414,0.5195755,0.564792,0.60924196,0.6523312,0.6944669,0.73623186,0.7783942,0.82194406,0.86803615,0.9194134,0.9832654,1.0581872
+    PointsProbed: 514.3577,10473.415,20553.818,40607.75,80639.35,160657.44,240654,320657.25,400652.66,480650.84,560653.75,640663.6,720656.4,800661.06,880668.2,960657.5,1000000
+    Accuracies: 0.5897,0.9363,0.9566,0.9703,0.98,0.9888,0.9923,0.9945,0.9958,0.9968,0.9975,0.9983,0.9986,0.9992,0.9999,  1,  1
+
+  Router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 4, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+    Mean relative prediction error: 0.27543163,0.47571158,0.49964693,0.51524544,0.5313032,0.5595163,0.5865838,0.61205804,0.6362719,0.6596406,0.6826361,0.70574206,0.7294629,0.7546631,0.7827859,0.8181308,0.8546404
+    PointsProbed: 501.65,10397.4375,20449.86,40500.1,80560.125,160611.83,240626.84,320633.84,400666.4,480661.75,560688.4,640693.7,720682.8,800693.44,880706.4,960658.75,1000000
+    Accuracies: 0.6064,0.9583,0.9729,0.9825,0.9893,0.9948,0.9961,0.9974,0.9981,0.9987,0.9989,0.9992,0.9996,0.9999,  1,  1,  1
+
+--------------------------------------
+Executing experiment: Text2Image
+--------------------------------------
+Configuration: Config { name: Some("Text2Image"), seed: Some(1), num_threads: Some(200), dataset: "/home/sebastian_pinecone_io/datasets/text2image-10M.hdf5", metric: InnerProduct, indexing: New { clustering: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 3000, num_iterations: Some(20), samples_per_centroid: Some(128), sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: Mean, output: None }, New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }, New { router_type: Scann { threshold: 0.5 }, output: None }, New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 6, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }], percent_points_probed: [0.0, 2.0, 4.0, 8.0, 16.0, 32.0, 56.0, 80.0, 90.0, 100.0], top_k: [1], percent_queries: Some(10.0) }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/text2image-10M.hdf5
+Making a new index as requested...
+Trained KMeans in 16 seconds
+Assigned clusters in 20 seconds
+Created partitions in 16 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: Mean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 201 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 6.02 vectors
+Compiling router New { router_type: Scann { threshold: 0.5 }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 6, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 6 vectors
+
+Executing router New { router_type: Mean, output: None }
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+Executing router New { router_type: Scann { threshold: 0.5 }, output: None }
+Executing router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 6, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+
+Results
+Top-k = 1
+  Router New { router_type: Mean, output: None }
+    Mean relative prediction error: 0.2766729,0.3620597,0.38446108,0.4117655,0.44465092,0.48532557,0.5287021,0.569048,0.5885413,0.6186273
+    PointsProbed: 3870.8691,202014.69,402022.22,802040.3,1602052.6,3202003.8,5601958.5,8001889,9001918,10000000
+    Accuracies: 0.4187,0.959,0.9824,0.9937,0.9988,0.9998,0.9999,0.9999,0.9999,0.9999
+
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.08189982,0.12745808,0.15006696,0.1811661,0.22260068,0.27656546,0.33579427,0.39164767,0.41879198,0.46079105
+    PointsProbed: 3248.4783,201789.8,401825.06,801905.1,1601977.1,3202017,5601977,8001987.5,9001990,10000000
+    Accuracies: 0.4032,0.9705,0.9875,0.9959,0.9995,0.9998,0.9999,0.9999,0.9999,0.9999
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+    Mean relative prediction error: 0.040719487,0.05589013,0.06361156,0.07371071,0.0870109,0.10443629,0.12283864,0.13861021,0.14568202,0.15575181
+    PointsProbed: 3334.6853,201772.36,401740.53,801762.7,1601779.9,3201874.3,5601977.5,8002122.5,9002172,10000000
+    Accuracies: 0.4438,0.9816,0.9941,0.9979,0.9997,0.9999,0.9999,0.9999,0.9999,0.9999
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 4 }) }, output: None }
+    Mean relative prediction error: 0.06674022,0.06366677,0.06613123,0.06954313,0.074271575,0.080504835,0.08727534,0.09373602,0.09696172,0.10196374
+    PointsProbed: 3393.8865,201739.34,401764.94,801750.7,1601801,3201842.5,5601951.5,8002165,9002276,10000000
+    Accuracies: 0.4434,0.9754,0.9916,0.9971,0.9993,0.9999,0.9999,0.9999,0.9999,0.9999
+
+  Router New { router_type: Scann { threshold: 0.5 }, output: None }
+    Mean relative prediction error: 0.4978913,0.33770296,0.29927394,0.25921464,0.22491,0.20766562,0.22073586,0.2593306,0.28559786,0.3355485
+    PointsProbed: 4122.972,202233.47,402192.34,802183.3,1602081,3201991.3,5601911.5,8001852,9001866,10000000
+    Accuracies: 0.4012,0.9419,0.9739,0.9913,0.9985,0.9998,0.9999,0.9999,0.9999,0.9999
+
+  Router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 6, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+    Mean relative prediction error: 0.07747343,0.09251881,0.108600736,0.13222931,0.16577704,0.2119613,0.26374513,0.31217355,0.33551005,0.3712291
+    PointsProbed: 3252.8474,201771.08,401821.88,801852.2,1601906.9,3201969.3,5602023,8002002,9001977,10000000
+    Accuracies: 0.413,0.9762,0.9906,0.9974,0.9996,0.9999,0.9999,0.9999,0.9999,0.9999
+
+--------------------------------------
+Executing experiment: Deep1M
+--------------------------------------
+Configuration: Config { name: Some("Deep1M"), seed: Some(1), num_threads: Some(200), dataset: "/home/sebastian_pinecone_io/datasets/deep-image-96.hdf5", metric: Cosine, indexing: New { clustering: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 3000, num_iterations: Some(20), samples_per_centroid: Some(128), sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: Mean, output: None }, New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }, New { router_type: Scann { threshold: 0.5 }, output: None }, New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 4, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }], percent_points_probed: [0.0, 2.0, 4.0, 8.0, 16.0, 32.0, 56.0, 80.0, 90.0, 100.0], top_k: [1], percent_queries: None }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/deep-image-96.hdf5
+Normalizing the data points because metric is Cosine
+Making a new index as requested...
+Trained KMeans in 10 seconds
+Assigned clusters in 8 seconds
+Created partitions in 17 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: Mean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 97 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 4.0208335 vectors
+Compiling router New { router_type: Scann { threshold: 0.5 }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 4, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 4 vectors
+
+Executing router New { router_type: Mean, output: None }
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }
+Executing router New { router_type: Scann { threshold: 0.5 }, output: None }
+Executing router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 4, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+
+Results
+Top-k = 1
+  Router New { router_type: Mean, output: None }
+    Mean relative prediction error: 0.29603672,0.3941943,0.43476987,0.48725337,0.5524907,0.63766545,0.73105294,0.8172018,0.85825676,0.94118994
+    PointsProbed: 4878.5674,202055.25,401740.2,801265.94,1600412.1,3198755.8,5596377,7994003.5,8993017,9990000
+    Accuracies: 0.4272,0.9849,0.9947,0.9983,0.9996,0.9996,0.9996,0.9996,0.9996,0.9996
+
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.090591125,0.21965027,0.2644351,0.3252213,0.40412194,0.5119721,0.6338578,0.7477495,0.8033259,0.9124098
+    PointsProbed: 4009.7537,201921.8,401605.94,801190.44,1600363,3198760.3,5596444.5,7994025.5,8992983,9990000
+    Accuracies: 0.4786,0.9925,0.9972,0.9986,0.9996,0.9996,0.9996,0.9996,0.9996,0.9996
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+    Mean relative prediction error: 0.046659566,0.046908345,0.052362744,0.0631331,0.082183726,0.11416144,0.15613438,0.19359192,0.21049812,0.24849312
+    PointsProbed: 3822.3232,201842.52,401530.2,801076.4,1600275.3,3198643,5596328,7994114,8993283,9990000
+    Accuracies: 0.4177,0.9929,0.9972,0.9989,0.9996,0.9996,0.9996,0.9996,0.9996,0.9996
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 2 }) }, output: None }
+    Mean relative prediction error: 0.04870466,0.084166765,0.09996947,0.12289612,0.15049507,0.18301463,0.2129237,0.2367219,0.24748544,0.27548715
+    PointsProbed: 4000.7256,201873.61,401600.25,801120.1,1600247.9,3198631,5596276.5,7994099.5,8993305,9990000
+    Accuracies: 0.4112,0.9915,0.9969,0.9986,0.9996,0.9996,0.9996,0.9996,0.9996,0.9996
+
+  Router New { router_type: Scann { threshold: 0.5 }, output: None }
+    Mean relative prediction error: 0.39898673,0.25172174,0.21044187,0.18889633,0.21950513,0.3306383,0.49303356,0.6556859,0.734935,0.89911443
+    PointsProbed: 4878.629,202066.89,401716.5,801259.5,1600374.6,3198779.8,5596389,7993977,8992962,9990000
+    Accuracies: 0.4287,0.9843,0.9944,0.9983,0.9994,0.9996,0.9996,0.9996,0.9996,0.9996
+
+  Router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 4, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+    Mean relative prediction error: 0.057797804,0.16842215,0.20736767,0.26106417,0.33203584,0.43100366,0.54461515,0.650272,0.70132303,0.8011202
+    PointsProbed: 3978.9033,201857.83,401608.56,801136.3,1600365.4,3198735.3,5596432,7994043,8993033,9990000
+    Accuracies: 0.4609,0.9919,0.9972,0.9989,0.9996,0.9996,0.9996,0.9996,0.9996,0.9996
+
+--------------------------------------
+Executing experiment: MsMarco-MiniLM
+--------------------------------------
+Configuration: Config { name: Some("MsMarco-MiniLM"), seed: Some(1), num_threads: Some(200), dataset: "/home/sebastian_pinecone_io/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5", metric: Cosine, indexing: New { clustering: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 3000, num_iterations: Some(20), samples_per_centroid: Some(128), sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: Mean, output: None }, New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 8 }) }, output: None }, New { router_type: Scann { threshold: 0.5 }, output: None }, New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 10, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }], percent_points_probed: [0.0, 2.0, 4.0, 8.0, 16.0, 32.0, 56.0, 80.0, 90.0, 100.0], top_k: [1], percent_queries: None }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5
+Normalizing the data points because metric is Cosine
+Making a new index as requested...
+Trained KMeans in 26 seconds
+Assigned clusters in 29 seconds
+Created partitions in 15 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: Mean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 385 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 8 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 10.020833 vectors
+Compiling router New { router_type: Scann { threshold: 0.5 }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 10, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 10 vectors
+
+Executing router New { router_type: Mean, output: None }
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 8 }) }, output: None }
+Executing router New { router_type: Scann { threshold: 0.5 }, output: None }
+Executing router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 10, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+
+Results
+Top-k = 1
+  Router New { router_type: Mean, output: None }
+    Mean relative prediction error: 0.5421891,0.6374664,0.6735703,0.7172997,0.7699057,0.83507526,0.9055104,0.9716793,1.0052313,1.0583849
+    PointsProbed: 3443.7988,178566.13,355406.13,709093.06,1416413.9,2831093.3,4953148,7075218.5,7959418,8841823
+    Accuracies: 0.57836676,0.96045846,0.9769341,0.987106,0.99383956,0.9965616,0.99842405,0.99885386,0.99885386,0.99885386
+
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.23840918,0.38332093,0.44483986,0.51914865,0.6076865,0.7177662,0.8379443,0.9514967,1.0067145,1.0958866
+    PointsProbed: 3436.2986,178578.88,355396.06,709071.9,1416398.3,2831088,4953175,7075237.5,7959429.5,8841823
+    Accuracies: 0.5859599,0.9640401,0.97893983,0.9883954,0.9939828,0.99641836,0.99842405,0.99885386,0.99885386,0.99885386
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+    Mean relative prediction error: 0.17717391,0.1708452,0.18069646,0.19527406,0.21470313,0.23756838,0.26014096,0.28062227,0.2907188,0.3097825
+    PointsProbed: 3206.98,178561.69,355381.28,709078.2,1416398.5,2831115.5,4953182.5,7075227.5,7959412,8841823
+    Accuracies: 0.5776504,0.9673352,0.9825215,0.9918338,0.9952722,0.9974212,0.99856734,0.9987106,0.99885386,0.99885386
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 8 }) }, output: None }
+    Mean relative prediction error: 0.19974637,0.21692632,0.22985184,0.24644212,0.26580018,0.2857348,0.3044109,0.32475615,0.33283928,0.34668916
+    PointsProbed: 3099.9226,178538.14,355374.53,709057.2,1416371.8,2831098,4953153.5,7075243,7959472,8841823
+    Accuracies: 0.53753585,0.9611748,0.9759312,0.9881089,0.993553,0.99684817,0.99813753,0.9987106,0.99885386,0.99885386
+
+  Router New { router_type: Scann { threshold: 0.5 }, output: None }
+    Mean relative prediction error: 0.1693847,0.2829965,0.35111538,0.43649304,0.5406595,0.67047274,0.8110987,0.94332236,1.010375,1.1166717
+    PointsProbed: 3443.6943,178571.81,355409.8,709063.8,1416409.8,2831111.8,4953112,7075255.5,7959432.5,8841823
+    Accuracies: 0.57851005,0.96031517,0.9769341,0.987106,0.99383956,0.9965616,0.99842405,0.99885386,0.99885386,0.99885386
+
+  Router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: SphericalKmeans, num_clusters: 10, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+    Mean relative prediction error: 0.13330226,0.2432579,0.289374,0.34683183,0.41778028,0.50797975,0.6075012,0.7009339,0.74613976,0.8129054
+    PointsProbed: 3332.3699,178520.25,355384.7,709066.2,1416395.6,2831085.8,4953162.5,7075229,7959413,8841823
+    Accuracies: 0.5756447,0.9648997,0.9790831,0.98767906,0.99383956,0.99684817,0.997851,0.99885386,0.99885386,0.99885386
+
+--------------------------------------
+Executing experiment: Nq-Ada2
+--------------------------------------
+Configuration: Config { name: Some("Nq-Ada2"), seed: Some(1), num_threads: Some(200), dataset: "/home/sebastian_pinecone_io/datasets/nq-openai_ada002-1536.hdf5", metric: Cosine, indexing: New { clustering: ClusteringConfig { algorithm: StandardKmeans, num_clusters: 1600, num_iterations: Some(20), samples_per_centroid: Some(128), sketch_size: None }, output: None }, routing: Some(RoutingConfig { routers: [New { router_type: Mean, output: None }, New { router_type: NormalizedMean, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }, New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 30 }) }, output: None }, New { router_type: Scann { threshold: 0.5 }, output: None }, New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: StandardKmeans, num_clusters: 32, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }], percent_points_probed: [0.0, 2.0, 4.0, 8.0, 16.0, 32.0, 56.0, 80.0, 90.0, 100.0], top_k: [1], percent_queries: None }), report_covariance_eigenvalue: None, report_covariance_diameter: None }
+Reading the dataset from /home/sebastian_pinecone_io/datasets/nq-openai_ada002-1536.hdf5
+Normalizing the data points because metric is Cosine
+Making a new index as requested...
+Trained KMeans in 27 seconds
+Assigned clusters in 16 seconds
+Created partitions in 6 seconds
+Executing routing experiments...
+
+Compiling router New { router_type: Mean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: NormalizedMean, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1537 vectors
+Compiling router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 30 }) }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 32.01953 vectors
+Compiling router New { router_type: Scann { threshold: 0.5 }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 1 vectors
+Compiling router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: StandardKmeans, num_clusters: 32, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+Making a new router as requested...
+  Router has average size per partition of 31.959375 vectors
+
+Executing router New { router_type: Mean, output: None }
+Executing router New { router_type: NormalizedMean, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+Executing router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 30 }) }, output: None }
+Executing router New { router_type: Scann { threshold: 0.5 }, output: None }
+Executing router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: StandardKmeans, num_clusters: 32, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+
+Results
+Top-k = 1
+  Router New { router_type: Mean, output: None }
+    Mean relative prediction error: 0.113021426,0.09722876,0.09531825,0.093981236,0.093096845,0.09256243,0.092486665,0.09276871,0.09292887,0.093038484
+    PointsProbed: 1881.6162,54679.29,108262.72,215478.06,429951.44,858900.8,1502318.6,2145709.5,2413790.3,2680961
+    Accuracies: 0.48290846,0.93887603,0.9661066,0.9808807,0.98986095,0.9913094,0.99188876,0.99188876,0.99188876,0.99188876
+
+  Router New { router_type: NormalizedMean, output: None }
+    Mean relative prediction error: 0.025382614,0.024805699,0.025289841,0.025810463,0.026321199,0.026450818,0.026166955,0.025877945,0.025766822,0.02550139
+    PointsProbed: 1944.3647,54686.266,108246.25,215481.4,429944.4,858904.7,1502314.8,2145713.8,2413796,2680961
+    Accuracies: 0.52143687,0.94524914,0.9704519,0.9829085,0.9904403,0.99188876,0.99188876,0.99188876,0.99188876,0.99188876
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: None }, output: None }
+    Mean relative prediction error: 0.03764912,0.02496362,0.023394603,0.022348879,0.021818504,0.021560673,0.021467797,0.021423806,0.021409173,0.021354344
+    PointsProbed: 1800.2966,54633.207,108241.45,215464.78,429945.5,858889.94,1502321.1,2145715.5,2413820.3,2680961
+    Accuracies: 0.53041714,0.95133257,0.9727694,0.98348784,0.99015063,0.99188876,0.99188876,0.99188876,0.99188876,0.99188876
+
+  Router New { router_type: Optimist { delta: 0.8, covariance_sketch: Some(LowRank { rank: 30 }) }, output: None }
+    Mean relative prediction error: 0.037240498,0.025444986,0.023892209,0.022802943,0.02223204,0.021853,0.021590156,0.021368012,0.021260275,0.021111188
+    PointsProbed: 1766.4563,54637.25,108233.4,215493.55,429934.2,858898.8,1502335.9,2145718.5,2413810.8,2680961
+    Accuracies: 0.5136153,0.9466976,0.9710313,0.9829085,0.9892816,0.9915991,0.99188876,0.99188876,0.99188876,0.99188876
+
+  Router New { router_type: Scann { threshold: 0.5 }, output: None }
+    Mean relative prediction error: 0.7721491,0.8035976,0.80740595,0.8100473,0.81179625,0.81283355,0.8129633,0.81238145,0.81205356,0.81182534
+    PointsProbed: 1881.9308,54675.457,108267.98,215477.84,429962.4,858905.06,1502320.4,2145712.3,2413797,2680961
+    Accuracies: 0.48319814,0.93887603,0.9661066,0.9808807,0.98986095,0.9913094,0.99188876,0.99188876,0.99188876,0.99188876
+
+  Router New { router_type: SubPartition { clustering_config: ClusteringConfig { algorithm: StandardKmeans, num_clusters: 32, num_iterations: Some(20), samples_per_centroid: None, sketch_size: None } }, output: None }
+    Mean relative prediction error: 0.06322552,0.058390345,0.05810424,0.0581152,0.058552247,0.05944094,0.06047634,0.061429463,0.06184851,0.062357206
+    PointsProbed: 1781.5469,54610.246,108237.12,215472.23,429936.25,858896.94,1502335,2145767.5,2413845.3,2680961
+    Accuracies: 0.50173813,0.9411935,0.96726537,0.97914255,0.9881228,0.9915991,0.99188876,0.99188876,0.99188876,0.99188876
+
