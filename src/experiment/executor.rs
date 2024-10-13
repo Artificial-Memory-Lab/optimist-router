@@ -24,10 +24,10 @@ use crate::library::utility::{random_split_ndarray, random_split_vector};
 use ann_dataset::{AnnDataset, GroundTruth, Hdf5File, InMemoryAnnDataset, Metric, PointSet};
 use itertools::Itertools;
 use ndarray::Axis;
-use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::cmp::min;
 use std::collections::HashMap;
+use std::time::Duration;
 
 #[derive(Serialize, Deserialize)]
 struct SerializableDynamicRouter {
@@ -141,8 +141,10 @@ impl Config {
             type PredictionError = Vec<f32>;
             type PointsProbed = Vec<f32>;
             type Accuracies = Vec<f32>;
+            type RoutingLatency = Vec<f32>;
             type TopK = usize;
-            type ResultSet = HashMap<TopK, (PointsProbed, Accuracies, PredictionError)>;
+            type ResultSet =
+                HashMap<TopK, (PointsProbed, Accuracies, PredictionError, RoutingLatency)>;
             type RouterId = usize;
             let mut all_results: HashMap<RouterId, ResultSet> = HashMap::new();
             println!();
@@ -151,7 +153,7 @@ impl Config {
 
                 let pb = utility::create_progress("Searching", queries.len());
                 let results: Vec<Vec<RetrievalResponse>> = queries
-                    .par_iter()
+                    .iter()
                     .map(|query| {
                         pb.inc(1);
                         index.retrieve(router.as_ref(), query, &min_points_probed, max_top_k)
@@ -160,6 +162,7 @@ impl Config {
                 pb.finish_and_clear();
 
                 let mut mean_prediction_error: Vec<f32> = vec![];
+                let mut mean_routing_latency: Vec<f32> = vec![];
                 let mut points_probed: Vec<f32> = vec![];
                 let mut accuracies: HashMap<usize, Vec<f32>> = HashMap::new();
                 (0..min_points_probed.len()).for_each(|i| {
@@ -177,6 +180,14 @@ impl Config {
                     let prediction_error =
                         prediction_error.iter().sum::<f32>() / results.len() as f32;
 
+                    let routing_latency = results
+                        .iter()
+                        .map(|r| r[i].routing_latency)
+                        .collect::<Vec<Duration>>();
+                    let routing_latency = routing_latency.iter().sum::<Duration>().as_millis()
+                        as f32
+                        / results.len() as f32;
+
                     let retrieved_set = results
                         .iter()
                         .map(|r| {
@@ -189,6 +200,7 @@ impl Config {
 
                     points_probed.push(actual_docs_examined);
                     mean_prediction_error.push(prediction_error);
+                    mean_routing_latency.push(routing_latency);
                     routing_config.top_k.iter().for_each(|&k| {
                         let trimmed_set = retrieved_set
                             .iter()
@@ -207,6 +219,7 @@ impl Config {
                             points_probed.clone(),
                             accuracies.get(k).unwrap().clone(),
                             mean_prediction_error.clone(),
+                            mean_routing_latency.clone(),
                         ),
                     );
                 });
@@ -230,6 +243,10 @@ impl Config {
                         router_results.0.iter().format(",")
                     );
                     println!("    Accuracies: {:3}", router_results.1.iter().format(","));
+                    println!(
+                        "    Mean routing latency (ms): {:3}",
+                        router_results.3.iter().format(",")
+                    );
                     println!();
                 });
             });

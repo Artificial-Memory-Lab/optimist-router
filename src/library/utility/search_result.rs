@@ -1,4 +1,5 @@
 use std::cmp::Ordering;
+use std::time::Duration;
 
 // A structure that reports the outcome of the inner product computation for a single document.
 #[derive(PartialEq, Clone, Copy, Debug)]
@@ -47,4 +48,8 @@ pub struct RetrievalResponse {
     ///
     /// where f() is the score assigned to shard P for query q by a particular router.
     pub mean_relative_prediction_error: f32,
+
+    /// Reports the time elapsed between the moment a query is presented to
+    /// the routing algorithm, and the moment it returns an ordered list of partitions in response.
+    pub routing_latency: Duration,
 }
