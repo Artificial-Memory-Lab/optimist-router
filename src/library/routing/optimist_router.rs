@@ -4,7 +4,7 @@ use crate::library::sketching::symmetric_psd_sketching::{
     SymmetricPSDSketch, SymmetricPSDSketcher,
 };
 use crate::library::utility;
-use ndarray::{Array1, Array2, ArrayView1, Zip};
+use ndarray::{Array2, ArrayView1, Zip};
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::cmp::Ordering::Equal;
@@ -55,16 +55,13 @@ impl Router for OptimistRouter {
         query: ArrayView1<f32>,
         _partitions: &Partitions,
     ) -> Vec<(usize, f32)> {
-        let means = self.means.dot(&query);
-        let mut scores = Array1::<f32>::zeros(self.means.nrows());
+        let mut scores = self.means.dot(&query);
         let alpha = ((1_f32 + self.delta) / (1_f32 - self.delta)).sqrt();
 
-        Zip::indexed(&mut scores)
-            .and(means.view())
-            .par_for_each(|index, dot, &mean| {
-                let std = self.covariances[index].dot(query).sqrt();
-                *dot = mean + alpha * std;
-            });
+        Zip::indexed(&mut scores).par_for_each(|index, score| {
+            let std = self.covariances[index].dot(query).sqrt();
+            *score += alpha * std;
+        });
 
         let mut results = scores.to_vec().into_iter().enumerate().collect::<Vec<_>>();
         results.par_sort_by(|x, y| y.1.partial_cmp(&x.1).unwrap_or(Equal));

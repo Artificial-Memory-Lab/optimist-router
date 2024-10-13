@@ -48,39 +48,38 @@ impl SymmetricPSDSketcher for IdentitySketcher {
 pub struct LowRankSketch {
     /// Stores the top eigen values and vectors of D^{-1/2} R D^{-1/2} where D is the diagonal
     /// and R=C-D is the residual of the matrix C.
-    eigen_vectors: Array2<f32>,
     eigen_values: Array1<f32>,
 
-    /// Stores the square root of the diagonal of the matrix (D^{1/2})
-    diag_sqrt: Array1<f32>,
+    diag: Array1<f32>,
+
+    /// Stores the square root of the diagonal of the matrix (D^{1/2} * U)
+    eigen_vectors_diag_scaled: Array2<f32>,
 }
 
 #[typetag::serde]
 impl SymmetricPSDSketch for LowRankSketch {
     fn dot(&self, u: ArrayView1<f32>) -> f32 {
-        let diag_sqrt = Array2::<f32>::eye(self.diag_sqrt.len()) * &self.diag_sqrt;
-        let eigen_values = Array2::<f32>::eye(self.eigen_values.len()) * &self.eigen_values;
-
         // First compute u.t() D^{1/2} Q S Q.t() D^{1/2} u
         // where Q contains the top eigenvectors and S the corresponding eigenvalues.
-        let score = diag_sqrt.dot(&u);
-        let score = self.eigen_vectors.t().dot(&score);
-        let score = eigen_values.dot(&score);
-        let score = self.eigen_vectors.dot(&score);
-        let score = diag_sqrt.dot(&score);
-        let score = u.t().dot(&score);
+        let residual_score = self
+            .eigen_vectors_diag_scaled
+            .axis_iter(Axis(0))
+            .zip(self.eigen_values.iter())
+            .map(|(r, l)| {
+                let x = r.dot(&u);
+                x * x * l
+            })
+            .sum::<f32>();
 
-        // Next, compute u.t() D u
-        let diagonal = diag_sqrt.dot(&u);
-        let diagonal = diag_sqrt.dot(&diagonal);
-        let diagonal = u.t().dot(&diagonal);
+        let u = &u * &u;
+        let diag_score = self.diag.dot(&u);
 
         // Now add the two scores.
-        score + diagonal
+        diag_score + residual_score
     }
 
     fn size(&self) -> usize {
-        self.eigen_vectors.len() + self.diag_sqrt.len() + self.eigen_values.len()
+        self.eigen_vectors_diag_scaled.len() + self.eigen_values.len() + self.diag.len()
     }
 }
 
@@ -121,12 +120,19 @@ impl SymmetricPSDSketcher for LowRankApproximation {
 
         let indices = (0..rank).collect::<Vec<_>>();
         let eigen_values = eigen_values.select(Axis(0), &indices);
-        let eigen_vectors = eigen_vectors.select(Axis(1), &indices);
+        let mut eigen_vectors = eigen_vectors.select(Axis(1), &indices);
+        eigen_vectors
+            .axis_iter_mut(Axis(0))
+            .enumerate()
+            .for_each(|(i, mut r)| {
+                let di = diag_sqrt[i];
+                r.mapv_inplace(|x| x * di);
+            });
 
         Box::new(LowRankSketch {
-            eigen_vectors,
+            eigen_vectors_diag_scaled: eigen_vectors.t().to_owned(),
             eigen_values,
-            diag_sqrt,
+            diag,
         })
     }
 }

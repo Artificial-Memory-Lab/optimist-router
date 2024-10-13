@@ -102,10 +102,12 @@ impl IvfIndex {
         min_vectors_probed: &[usize],
         top_k: usize,
     ) -> Vec<RetrievalResponse> {
+        let now = Instant::now();
         // Ask the query router to sort partitions given the current query.
         let sorted_partitions = match &query {
             Query::Dense(q) => router.sort_partitions(q.view(), self.partitions()),
         };
+        let routing_latency = now.elapsed();
 
         min_vectors_probed
             .iter()
@@ -171,6 +173,7 @@ impl IvfIndex {
                     expected_number_of_docs_probed: examined_docs as u32,
                     actual_number_of_docs_probed: examined_docs as u32,
                     mean_relative_prediction_error: prediction_error / partition as f32,
+                    routing_latency,
                 }
             })
             .collect::<Vec<_>>()
