@@ -86,8 +86,8 @@ pub struct RoutingConfig {
     /// Types of Routers to use.
     pub routers: Vec<RouterInstance>,
 
-    /// Percent data points to probe (between 0 and 100).
-    pub percent_points_probed: Vec<f32>,
+    /// Cutoff for search
+    pub cutoff: Cutoff,
 
     /// Top-k.
     pub top_k: Vec<usize>,
@@ -95,6 +95,18 @@ pub struct RoutingConfig {
     /// Percent queries to use for evaluation (between 0 and 100).
     /// The value 0 is a special case: If this is 0, we probed the top partition only.
     pub percent_queries: Option<f32>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub enum Cutoff {
+    PercentPoints {
+        /// Percent data points to probe (between 0 and 100).
+        percent_points_probed: Vec<f32>,
+    },
+    NumClusters {
+        /// Number of clusters to probe
+        num_clusters: Vec<usize>,
+    },
 }
 
 #[derive(Serialize, Deserialize, Debug)]

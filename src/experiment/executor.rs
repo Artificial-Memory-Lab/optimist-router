@@ -1,8 +1,9 @@
 use crate::experiment::config::{
-    ClusteringAlgorithm, ClusteringConfig, Config, CovarianceSketch, IndexingConfig,
+    ClusteringAlgorithm, ClusteringConfig, Config, CovarianceSketch, Cutoff, IndexingConfig,
     RouterInstance, RouterType, RoutingConfig,
 };
 use crate::implement_serialization;
+use crate::index::ivf_index;
 use crate::index::ivf_index::Query::Dense;
 use crate::index::ivf_index::{IvfIndex, Query};
 use crate::library::clustering::gmm::{GMMClustering, GMMMode};
@@ -104,18 +105,27 @@ impl Config {
 
             let queries = self.compile_queries(&dataset, routing_config);
             let ground_truth = self.compile_ground_truth(&dataset, routing_config);
-            let min_points_probed = routing_config
-                .percent_points_probed
-                .iter()
-                .map(|&percent| {
-                    assert!((0_f32..=100_f32).contains(&percent));
-                    if percent == 0_f32 {
-                        return 1_usize;
-                    }
-                    ((percent / 100_f32) * (dataset.get_data_points().num_points() as f32)).ceil()
-                        as usize
-                })
-                .collect::<Vec<_>>();
+
+            let num_cutoffs: usize;
+            let cutoffs = match &routing_config.cutoff {
+                Cutoff::PercentPoints {
+                    percent_points_probed,
+                } => {
+                    num_cutoffs = percent_points_probed.len();
+                    ivf_index::Cutoff::NumPoints(
+                        percent_points_probed
+                            .iter()
+                            .map(|&percent| {
+                                return percent as usize;
+                            })
+                            .collect::<Vec<_>>(),
+                    )
+                }
+                Cutoff::NumClusters { num_clusters } => {
+                    num_cutoffs = num_clusters.len();
+                    ivf_index::Cutoff::NumClusters(num_clusters.to_vec())
+                }
+            };
 
             // Construct routers.
             let routers = routing_config
@@ -156,7 +166,7 @@ impl Config {
                     .iter()
                     .map(|query| {
                         pb.inc(1);
-                        index.retrieve(router.as_ref(), query, &min_points_probed, max_top_k)
+                        index.retrieve(router.as_ref(), query, &cutoffs, max_top_k)
                     })
                     .collect();
                 pb.finish_and_clear();
@@ -165,7 +175,7 @@ impl Config {
                 let mut mean_routing_latency: Vec<f32> = vec![];
                 let mut points_probed: Vec<f32> = vec![];
                 let mut accuracies: HashMap<usize, Vec<f32>> = HashMap::new();
-                (0..min_points_probed.len()).for_each(|i| {
+                (0..num_cutoffs).for_each(|i| {
                     let actual_docs_examined = results
                         .iter()
                         .map(|r| r[i].actual_number_of_docs_probed as usize)
@@ -278,10 +288,10 @@ impl Config {
     }
 
     fn compile_queries<'a>(
-        &'a self,
+        &self,
         dataset: &'a InMemoryAnnDataset<f32>,
         routing_config: &RoutingConfig,
-    ) -> Vec<Query> {
+    ) -> Vec<Query<'a>> {
         let test_set = dataset.get_test_query_set().unwrap().get_points();
         let mut queries = test_set
             .get_dense()

@@ -12,24 +12,25 @@
   routing:
     top_k:
       - 1
-    percent_points_probed:
-      - 0
-      - 1
-      - 2
-      - 4
-      - 8
-      - 16
-      - 24
-      - 32
-      - 40
-      - 48
-      - 56
-      - 64
-      - 72
-      - 80
-      - 88
-      - 96
-      - 100
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 0
+        - 1
+        - 2
+        - 4
+        - 8
+        - 16
+        - 24
+        - 32
+        - 40
+        - 48
+        - 56
+        - 64
+        - 72
+        - 80
+        - 88
+        - 96
+        - 100
     routers:
       - !New { router_type: !Mean, output: }
       - !New { router_type: !NormalizedMean, output: }
@@ -59,24 +60,25 @@
   routing:
     top_k:
       - 1
-    percent_points_probed:
-      - 0
-      - 1
-      - 2
-      - 4
-      - 8
-      - 16
-      - 24
-      - 32
-      - 40
-      - 48
-      - 56
-      - 64
-      - 72
-      - 80
-      - 88
-      - 96
-      - 100
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 0
+        - 1
+        - 2
+        - 4
+        - 8
+        - 16
+        - 24
+        - 32
+        - 40
+        - 48
+        - 56
+        - 64
+        - 72
+        - 80
+        - 88
+        - 96
+        - 100
     routers:
       - !New { router_type: !Mean, output: }
       - !New { router_type: !NormalizedMean, output: }
@@ -108,17 +110,18 @@
     top_k:
       - 1
     percent_queries: 10
-    percent_points_probed:
-      - 0
-      - 2
-      - 4
-      - 8
-      - 16
-      - 32
-      - 56
-      - 80
-      - 90
-      - 100
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 0
+        - 2
+        - 4
+        - 8
+        - 16
+        - 32
+        - 56
+        - 80
+        - 90
+        - 100
     routers:
       - !New { router_type: !Mean, output: }
       - !New { router_type: !NormalizedMean, output: }
@@ -149,17 +152,18 @@
   routing:
     top_k:
       - 1
-    percent_points_probed:
-      - 0
-      - 2
-      - 4
-      - 8
-      - 16
-      - 32
-      - 56
-      - 80
-      - 90
-      - 100
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 0
+        - 2
+        - 4
+        - 8
+        - 16
+        - 32
+        - 56
+        - 80
+        - 90
+        - 100
     routers:
       - !New { router_type: !Mean, output: }
       - !New { router_type: !NormalizedMean, output: }
@@ -190,17 +194,18 @@
   routing:
     top_k:
       - 1
-    percent_points_probed:
-      - 0
-      - 2
-      - 4
-      - 8
-      - 16
-      - 32
-      - 56
-      - 80
-      - 90
-      - 100
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 0
+        - 2
+        - 4
+        - 8
+        - 16
+        - 32
+        - 56
+        - 80
+        - 90
+        - 100
     routers:
       - !New { router_type: !Mean, output: }
       - !New { router_type: !NormalizedMean, output: }
@@ -231,17 +236,18 @@
   routing:
     top_k:
       - 1
-    percent_points_probed:
-      - 0
-      - 2
-      - 4
-      - 8
-      - 16
-      - 32
-      - 56
-      - 80
-      - 90
-      - 100
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 0
+        - 2
+        - 4
+        - 8
+        - 16
+        - 32
+        - 56
+        - 80
+        - 90
+        - 100
     routers:
       - !New { router_type: !Mean, output: }
       - !New { router_type: !NormalizedMean, output: }

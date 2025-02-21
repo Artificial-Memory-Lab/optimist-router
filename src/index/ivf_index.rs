@@ -22,6 +22,12 @@ pub enum Query<'a> {
     Dense(ArrayView1<'a, f32>),
 }
 
+#[derive(Clone)]
+pub enum Cutoff {
+    NumPoints(Vec<usize>),
+    NumClusters(Vec<usize>),
+}
+
 #[derive(Serialize, Deserialize)]
 pub struct IvfIndex {
     partitions: Partitions,
@@ -93,13 +99,13 @@ impl IvfIndex {
 
     /// Performs top-k retrieval over the index for a given query.
     ///
-    /// The algorithm probes as many partitions as necessary to examine at least `min_vectors_probed`
-    /// data points.
+    /// The algorithm probes as many partitions as necessary to examine at least `cutoff` points or
+    /// clusters.
     pub fn retrieve(
         &self,
         router: &dyn Router,
         query: &Query,
-        min_vectors_probed: &[usize],
+        cutoffs: &Cutoff,
         top_k: usize,
     ) -> Vec<RetrievalResponse> {
         let now = Instant::now();
@@ -109,20 +115,39 @@ impl IvfIndex {
         };
         let routing_latency = now.elapsed();
 
-        min_vectors_probed
+        let cutoff_values = match cutoffs {
+            Cutoff::NumPoints(c) => c,
+            Cutoff::NumClusters(c) => c,
+        };
+
+        cutoff_values
             .iter()
-            .map(|&probed_count| {
+            .map(|&cutoff| {
                 // Find out how many top-ranking partitions we must probe so that at least
                 // `min_vectors_probed` data points are eventually visited.
                 let mut examined_docs = 0_usize;
                 let mut partition = 0_usize;
-                while examined_docs < probed_count && partition < sorted_partitions.len() {
-                    examined_docs += self
-                        .partitions
-                        .partition(sorted_partitions[partition].0)
-                        .unwrap()
-                        .num_points();
-                    partition += 1;
+                match cutoffs {
+                    Cutoff::NumPoints(_) => {
+                        while examined_docs < cutoff && partition < sorted_partitions.len() {
+                            examined_docs += self
+                                .partitions
+                                .partition(sorted_partitions[partition].0)
+                                .unwrap()
+                                .num_points();
+                            partition += 1;
+                        }
+                    }
+                    Cutoff::NumClusters(_) => {
+                        while partition < cutoff && partition < sorted_partitions.len() {
+                            examined_docs += self
+                                .partitions
+                                .partition(sorted_partitions[partition].0)
+                                .unwrap()
+                                .num_points();
+                            partition += 1;
+                        }
+                    }
                 }
 
                 // Accumulate prediction error.

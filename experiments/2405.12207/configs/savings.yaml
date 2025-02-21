@@ -12,11 +12,12 @@
   routing:
     top_k:
       - 100
-    percent_points_probed:
-      - 8    # Optimist reaches 90% recall
-      - 9    # NormalizedMean reaches 90% recall
-      - 17   # Optimist reaches 95% recall
-      - 18.2 # NormalizedMean reaches 95% recall
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 8    # Optimist reaches 90% recall
+        - 9    # NormalizedMean reaches 90% recall
+        - 17   # Optimist reaches 95% recall
+        - 18.2 # NormalizedMean reaches 95% recall
     routers:
       - !New { router_type: !NormalizedMean, output: }
       - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 4 } }, output: }
@@ -34,11 +35,12 @@
   routing:
     top_k:
       - 100
-    percent_points_probed:
-      - 0.32  # Optimist reaches 90% recall
-      - 0.52  # NormalizedMean reaches 90% recall
-      - 0.64  # Optimist reaches 95% recall
-      - 1.4   # NormalizedMean reaches 95% recall
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 0.32  # Optimist reaches 90% recall
+        - 0.52  # NormalizedMean reaches 90% recall
+        - 0.64  # Optimist reaches 95% recall
+        - 1.4   # NormalizedMean reaches 95% recall
     routers:
       - !New { router_type: !NormalizedMean, output: }
       - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 2 } }, output: }
@@ -58,11 +60,12 @@
     top_k:
       - 100
     percent_queries: 10
-    percent_points_probed:
-      - 0.68  # Optimist reaches 90% recall
-      - 0.86  # NormalizedMean reaches 90% recall
-      - 1.4   # Optimist reaches 95% recall
-      - 1.8   # NormalizedMean reaches 95% recall
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 0.68  # Optimist reaches 90% recall
+        - 0.86  # NormalizedMean reaches 90% recall
+        - 1.4   # Optimist reaches 95% recall
+        - 1.8   # NormalizedMean reaches 95% recall
     routers:
       - !New { router_type: !NormalizedMean, output: }
       - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 4 } }, output: }
@@ -81,11 +84,12 @@
   routing:
     top_k:
       - 100
-    percent_points_probed:
-      - 1.4  # Optimist reaches 90% recall
-      - 1.8  # NormalizedMean reaches 90% recall
-      - 4.8  # Optimist reaches 95% recall
-      - 5.2  # NormalizedMean reaches 95% recall
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 1.4  # Optimist reaches 90% recall
+        - 1.8  # NormalizedMean reaches 90% recall
+        - 4.8  # Optimist reaches 95% recall
+        - 5.2  # NormalizedMean reaches 95% recall
     routers:
       - !New { router_type: !NormalizedMean, output: }
       - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 8 } }, output: }
@@ -104,11 +108,12 @@
   routing:
     top_k:
       - 100
-    percent_points_probed:
-      - 1.8  # Optimist reaches 90% recall
-      - 2.15 # NormalizedMean reaches 90% recall
-      - 4.0  # Optimist reaches 95% recall
-      - 5.0  # NormalizedMean reaches 95% recall
+    cutoff: !PercentPoints
+      percent_points_probed:
+        - 1.8  # Optimist reaches 90% recall
+        - 2.15 # NormalizedMean reaches 90% recall
+        - 4.0  # Optimist reaches 95% recall
+        - 5.0  # NormalizedMean reaches 95% recall
     routers:
       - !New { router_type: !NormalizedMean, output: }
       - !New { router_type: !Optimist { delta: .8, covariance_sketch: !LowRank { rank: 30 } }, output: }
