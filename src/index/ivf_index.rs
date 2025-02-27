@@ -48,11 +48,11 @@ impl IvfIndex {
             return Err(anyhow!("Sparse vectors are not yet supported."));
         }
 
-        return Ok(Self::new_dense_index(
+        Ok(Self::new_dense_index(
             data_points.get_dense().unwrap().view(),
             clustering,
             num_clusters,
-        ));
+        ))
     }
 
     fn new_dense_index(

@@ -115,9 +115,7 @@ impl Config {
                     ivf_index::Cutoff::NumPoints(
                         percent_points_probed
                             .iter()
-                            .map(|&percent| {
-                                return percent as usize;
-                            })
+                            .map(|&percent| percent as usize)
                             .collect::<Vec<_>>(),
                     )
                 }
