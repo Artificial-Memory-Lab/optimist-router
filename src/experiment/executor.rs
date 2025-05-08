@@ -30,6 +30,8 @@ use std::cmp::min;
 use std::collections::HashMap;
 use std::time::Duration;
 
+const ROOT: &str = "{ROOT}";
+
 #[derive(Serialize, Deserialize)]
 struct SerializableDynamicRouter {
     router: Box<dyn Router>,
@@ -40,6 +42,35 @@ impl FileSerializable for SerializableDynamicRouter {
 }
 
 impl Config {
+    pub fn update_paths(&mut self, root: &str) {
+        self.dataset = self.dataset.replace(ROOT, root);
+        match &mut self.indexing {
+            IndexingConfig::PreMade { path } => {
+                *path = path.replace(ROOT, root);
+            }
+            IndexingConfig::New { output, .. } => {
+                if let Some(output) = output {
+                    *output = output.replace(ROOT, root);
+                }
+            }
+        }
+
+        if let Some(routing) = &mut self.routing {
+            for router in &mut routing.routers {
+                match router {
+                    RouterInstance::PreMade { path } => {
+                        *path = path.replace(ROOT, root);
+                    }
+                    RouterInstance::New { output, .. } => {
+                        if let Some(output) = output {
+                            *output = output.replace(ROOT, root);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     pub fn execute(&self) {
         if let Some(num_threads) = self.num_threads {
             rayon::ThreadPoolBuilder::new()
