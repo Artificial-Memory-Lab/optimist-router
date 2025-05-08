@@ -1,7 +1,7 @@
 - name: "GloVe-200 Spherical KMeans"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/glove-200.hdf5"
+  dataset: "{ROOT}/datasets/glove-200.hdf5"
   metric: !Cosine
   indexing: !New
     clustering:
@@ -52,7 +52,7 @@
 - name: "Music 100 Spherical KMeans"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/music-100.hdf5"
+  dataset: "{ROOT}/datasets/music-100.hdf5"
   metric: !InnerProduct
   indexing: !New
     output:
@@ -95,7 +95,7 @@
 - name: "Text2Image Spherical KMeans"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/text2image-10M.hdf5"
+  dataset: "{ROOT}/datasets/text2image-10M.hdf5"
   metric: !InnerProduct
   indexing: !New
     output:
@@ -140,7 +140,7 @@
 - name: "Deep1M Spherical KMeans"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/deep-image-96.hdf5"
+  dataset: "{ROOT}/datasets/deep-image-96.hdf5"
   metric: !Cosine
   indexing: !New
     output:
@@ -184,7 +184,7 @@
 - name: "MsMarco-MiniLM Spherical KMeans"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5"
+  dataset: "{ROOT}/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5"
   metric: !Cosine
   indexing: !New
     output:
@@ -228,7 +228,7 @@
 - name: "Nq-Ada2 Spherical KMeans"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/nq-openai_ada002-1536.hdf5"
+  dataset: "{ROOT}/datasets/nq-openai_ada002-1536.hdf5"
   metric: !Cosine
   indexing: !New
     output:

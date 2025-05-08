@@ -1,16 +1,16 @@
 - name: "GloVe-200 GMM"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/glove-200.hdf5"
+  dataset: "{ROOT}/datasets/glove-200.hdf5"
   metric: !Cosine
   #indexing: !New
-  #  output: "/home/sebastian_pinecone_io/indexes/glove-200-HardGmm"
+  #  output: "{ROOT}/indexes/glove-200-HardGmm"
   #  clustering:
   #    algorithm: !HardGmm { assignment_top_k: 10 }
   #    num_clusters: 1024
   #    num_iterations: 10
   indexing: !PreMade
-    path: "/home/sebastian_pinecone_io/indexes/glove-200-HardGmm"
+    path: "{ROOT}/indexes/glove-200-HardGmm"
   routing:
     top_k:
       - 1
@@ -54,16 +54,16 @@
 - name: "Music 100 GMM"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/music-100.hdf5"
+  dataset: "{ROOT}/datasets/music-100.hdf5"
   metric: !InnerProduct
   #indexing: !New
-  #  output: "/home/sebastian_pinecone_io/indexes/music-100-HardGmm"
+  #  output: "{ROOT}/indexes/music-100-HardGmm"
   #  clustering:
   #    algorithm: !HardGmm { assignment_top_k: 10 }
   #    num_clusters: 1024
   #    num_iterations: 10
   indexing: !PreMade
-    path: "/home/sebastian_pinecone_io/indexes/music-100-HardGmm"
+    path: "{ROOT}/indexes/music-100-HardGmm"
   routing:
     top_k:
       - 1
@@ -99,16 +99,16 @@
 - name: "Text2Image GMM"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/text2image-10M.hdf5"
+  dataset: "{ROOT}/datasets/text2image-10M.hdf5"
   metric: !InnerProduct
   #indexing: !New
-  #  output: "/home/sebastian_pinecone_io/indexes/text2image-10M-HardGmm"
+  #  output: "{ROOT}/indexes/text2image-10M-HardGmm"
   #  clustering:
   #    algorithm: !HardGmm { assignment_top_k: 10 }
   #    num_clusters: 3000
   #    num_iterations: 10
   indexing: !PreMade
-    path: "/home/sebastian_pinecone_io/indexes/text2image-10M-HardGmm"
+    path: "{ROOT}/indexes/text2image-10M-HardGmm"
   routing:
     top_k:
       - 1
@@ -145,16 +145,16 @@
 - name: "Deep1M GMM"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/deep-image-96.hdf5"
+  dataset: "{ROOT}/datasets/deep-image-96.hdf5"
   metric: !Cosine
   #indexing: !New
-  #  output: "/home/sebastian_pinecone_io/indexes/deep-image-96-HardGmm"
+  #  output: "{ROOT}/indexes/deep-image-96-HardGmm"
   #  clustering:
   #    algorithm: !HardGmm { assignment_top_k: 10 }
   #    num_clusters: 3000
   #    num_iterations: 10
   indexing: !PreMade
-    path: "/home/sebastian_pinecone_io/indexes/deep-image-96-HardGmm"
+    path: "{ROOT}/indexes/deep-image-96-HardGmm"
   routing:
     top_k:
       - 1
@@ -190,16 +190,16 @@
 - name: "MsMarco-MiniLM GMM"
   seed: 1
   num_threads: 128
-  dataset: "/home/sebastian_pinecone_io/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5"
+  dataset: "{ROOT}/datasets/msmarco-v1-passage-allMinniLML6V2.hdf5"
   metric: !Cosine
   #indexing: !New
-  #  output: "/home/sebastian_pinecone_io/indexes/msmarco-v1-passage-allMinniLML6V2-HardGmm"
+  #  output: "{ROOT}/indexes/msmarco-v1-passage-allMinniLML6V2-HardGmm"
   #  clustering:
   #    algorithm: !HardGmm { assignment_top_k: 10 }
   #    num_clusters: 3000
   #    num_iterations: 10
   indexing: !PreMade
-    path: "/home/sebastian_pinecone_io/indexes/msmarco-v1-passage-allMinniLML6V2-HardGmm"
+    path: "{ROOT}/indexes/msmarco-v1-passage-allMinniLML6V2-HardGmm"
   routing:
     top_k:
       - 1
