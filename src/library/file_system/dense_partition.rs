@@ -19,7 +19,7 @@ impl DensePartition {
 
 #[typetag::serde]
 impl Partition for DensePartition {
-    fn points(&self) -> ArrayView2<f32> {
+    fn points(&'_ self) -> ArrayView2<'_, f32> {
         self.data.view()
     }
 

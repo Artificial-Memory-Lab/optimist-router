@@ -10,7 +10,7 @@ use std::slice::Iter;
 #[typetag::serde(tag = "partition")]
 pub trait Partition: Sync {
     /// Returns the points.
-    fn points(&self) -> ArrayView2<f32>;
+    fn points(&'_ self) -> ArrayView2<'_, f32>;
 
     /// Returns the number of points.
     fn num_points(&self) -> usize;
@@ -63,11 +63,11 @@ impl Partitions {
         ))
     }
 
-    pub fn iter(&self) -> Iter<Box<dyn Partition>> {
+    pub fn iter(&'_ self) -> Iter<'_, Box<dyn Partition>> {
         self.partitions.iter()
     }
 
-    pub fn par_iter(&self) -> rayon::slice::Iter<Box<dyn Partition>> {
+    pub fn par_iter(&'_ self) -> rayon::slice::Iter<'_, Box<dyn Partition>> {
         self.partitions.par_iter()
     }
 
