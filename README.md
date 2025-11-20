@@ -38,12 +38,12 @@ export RAYON_NUM_THREADS=4
 
 Please use the following to cite our work:
 ```latex
-@misc{bruch2024optimistic,
-      title={Optimistic Query Routing in Clustering-based Approximate Maximum Inner Product Search}, 
-      author={Sebastian Bruch and Aditya Krishnan and Franco Maria Nardini},
-      year={2024},
-      eprint={2405.12207},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+@inproceedings{
+  bruch2025optimistic,
+  title={Optimistic Query Routing in Clustering-based Approximate Maximum Inner Product Search},
+  author={Sebastian Bruch and Aditya Krishnan and Franco Maria Nardini},
+  booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
+  year={2025},
+  url={https://openreview.net/forum?id=yzvpEHNL70}
 }
 ```
