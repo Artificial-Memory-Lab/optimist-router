@@ -3,12 +3,12 @@
 ## Obtaining the data
 
 You can download all relevant datasets using the following links:
-- [Deep](http://storage.googleapis.com/anonymized-ann-data/ann/deep-image-96.hdf5)
-- [Glove](http://storage.googleapis.com/anonymized-ann-data/ann/glove-200.hdf5)
-- [MsMarco](http://storage.googleapis.com/anonymized-ann-data/ann/msmarco-v1-passage-allMinniLML6V2.hdf5)
-- [Music](http://storage.googleapis.com/anonymized-ann-data/ann/music-100.hdf5)
-- [NQ](http://storage.googleapis.com/anonymized-ann-data/ann/nq-openai_ada002-1536.hdf5)
-- [Text2Image](http://storage.googleapis.com/anonymized-ann-data/ann/text2image-10M.hdf5)
+- [Deep](https://huggingface.co/datasets/artificial-memory-lab/ann-datasets/blob/main/deep-image-96.hdf5)
+- [Glove](https://huggingface.co/datasets/artificial-memory-lab/ann-datasets/blob/main/glove-200.hdf5)
+- [MsMarco](https://huggingface.co/datasets/artificial-memory-lab/ann-datasets/blob/main/msmarco-v1-passage-allMinniLML6V2.hdf5)
+- [Music](https://huggingface.co/datasets/artificial-memory-lab/ann-datasets/blob/main/music-100.hdf5)
+- [NQ](https://huggingface.co/datasets/artificial-memory-lab/ann-datasets/blob/main/nq-openai_ada002-1536.hdf5)
+- [Text2Image](https://huggingface.co/datasets/artificial-memory-lab/ann-datasets/blob/main/text2image-10M.hdf5)
 
 Copy the above datasets to `${PATH_TO_ROOT_DIR}/datasets/`.
 
